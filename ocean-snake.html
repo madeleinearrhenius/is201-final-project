@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>School of Fish Game</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #0077b6, #03045e);
+      color: white;
+      text-align: center;
+    }
+
+    nav {
+      padding: 15px;
+      background-color: rgba(0,0,0,0.3);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 2.2rem;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    canvas {
+      background-color: #caf0f8;
+      border-radius: 20px;
+      margin-top: 20px;
+    }
+
+    .controls {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 8px 18px;
+      border-radius: 20px;
+      border: none;
+      background-color: #90dbf4;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #48cae4;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="scratch.html">← Back to Scratch Page</a>
+  </nav>
+
+  <h1>🐠 School of Fish</h1>
+  <p>Guide the fish to collect bubbles</p>
+
+  <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+  <div class="controls">
+    <p><strong>Score:</strong> <span id="score">0</span></p>
+    <button onclick="resetGame()">Restart</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const box = 20;
+    let score = 0;
+
+    let fish = [{ x: 200, y: 200 }];
+    let direction = "RIGHT";
+
+    let bubble = {
+      x: Math.floor(Math.random() * 19 + 1) * box,
+      y: Math.floor(Math.random() * 19 + 1) * box
+    };
+
+    document.addEventListener("keydown", changeDirection);
+
+    function changeDirection(event) {
+      if (event.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
+      else if (event.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
+      else if (event.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
+      else if (event.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
+    }
+
+    function drawGame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw fish (school)
+      for (let i = 0; i < fish.length; i++) {
+        ctx.fillStyle = i === 0 ? "#0077b6" : "#48cae4";
+        ctx.fillRect(fish[i].x, fish[i].y, box - 2, box - 2);
+      }
+
+      // Draw bubble
+      ctx.beginPath();
+      ctx.arc(bubble.x + 10, bubble.y + 10, 8, 0, Math.PI * 2);
+      ctx.fillStyle = "white";
+      ctx.fill();
+
+      // Fish movement
+      let headX = fish[0].x;
+      let headY = fish[0].y;
+
+      if (direction === "LEFT") headX -= box;
+      if (direction === "UP") headY -= box;
+      if (direction === "RIGHT") headX += box;
+      if (direction === "DOWN") headY += box;
+
+      // Eat bubble
+      if (headX === bubble.x && headY === bubble.y) {
+        score++;
+        document.getElementById("score").innerText = score;
+
+        bubble = {
+          x: Math.floor(Math.random() * 19 + 1) * box,
+          y: Math.floor(Math.random() * 19 + 1) * box
+        };
+      } else {
+        fish.pop();
+      }
+
+      const newHead = { x: headX, y: headY };
+
+      // Game over conditions
+      if (
+        headX < 0 || headX >= canvas.width ||
+        headY < 0 || headY >= canvas.height ||
+        collision(newHead, fish)
+      ) {
+        clearInterval(game);
+        alert("Game Over! 🐠");
+      }
+
+      fish.unshift(newHead);
+    }
+
+    function collision(head, array) {
+      for (let i = 0; i < array.length; i++) {
+        if (head.x === array[i].x && head.y === array[i].y) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function resetGame() {
+      score = 0;
+      fish = [{ x: 200, y: 200 }];
+      direction = "RIGHT";
+      document.getElementById("score").innerText = score;
+      clearInterval(game);
+      game = setInterval(drawGame, 140);
+    }
+
+    let game = setInterval(drawGame, 140);
+  </script>
+
+</body>
+</html>

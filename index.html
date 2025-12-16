@@ -5,9 +5,10 @@
   <title>Madeleine Arrhenius | Home</title>
 
   <!-- Google Fonts: 80s–90s Beach Vibe -->
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
+    /* Body & fonts */
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -15,6 +16,7 @@
       color: #033f63;
     }
 
+    /* Navigation bar */
     nav {
       background-color: #033f63;
       padding: 15px;
@@ -32,6 +34,7 @@
       text-decoration: underline;
     }
 
+    /* Hero section */
     header {
       text-align: center;
       padding: 90px 20px;
@@ -47,12 +50,10 @@
       font-size: 1.2rem;
       max-width: 600px;
       margin: auto;
+      margin-bottom: 40px;
     }
 
-    .cta {
-      margin-top: 40px;
-    }
-
+    /* Call-to-action buttons */
     .cta a {
       background-color: #1d3557;
       color: white;
@@ -62,11 +63,35 @@
       font-weight: 500;
       margin: 10px;
       display: inline-block;
+      transition: background-color 0.3s;
     }
 
     .cta a:hover {
       background-color: #457b9d;
     }
+
+    /* Optional section for extra links */
+    .extra-links {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .extra-links a {
+      background-color: #90dbf4;
+      color: #033f63;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-block;
+      transition: background-color 0.3s;
+    }
+
+    .extra-links a:hover {
+      background-color: #48cae4;
+    }
+
   </style>
 </head>
 
@@ -79,14 +104,16 @@
     <a href="resume.html">Resume</a>
     <a href="experience.html">Experience</a>
     <a href="contact.html">Contact</a>
+    <a href="scratch.html">Scratch Page</a>
+    <a href="ocean-snake.html">Snake Game</a>
   </nav>
 
   <!-- Hero Section -->
   <header>
-    <h1>Hi, I’m Madeleine</h1>
+    <h1>Hi, I'm Madeleine</h1>
     <p>
-      A pre-business student with a passion for marketing, creativity, and
-      California-inspired storytelling.
+      Pre-business student passionate about marketing, creativity, and California-inspired storytelling.  
+      Explore my work, projects, and interactive experiments below.
     </p>
 
     <div class="cta">
@@ -95,5 +122,12 @@
     </div>
   </header>
 
+  <!-- Extra Section for Scratch and Snake -->
+  <div class="extra-links">
+    <a href="scratch.html">Visit Scratch Page</a>
+    <a href="ocean-snake.html">Play Ocean Snake Game</a>
+  </div>
+
 </body>
 </html>
+
